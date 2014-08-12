@@ -1,19 +1,316 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
 		<link rel="stylesheet" type="text/css" href="css/prism.css" />
 	</head>
 	<body>
-		<pre>
-			<code class="language-php">
-				//http://degdigital.github.io/magento-frontend-snippets/
-			</code>
-		</pre>
+
+	<div class="wrapper">
+
+		<h1>Magento Responsive Design: Handy Templates and XML Snippets</h1>
+
+		<p>In Magento it is not always easy to know how to change, add or remove a content area correctly. Below are code snippets for how to make layout changes in XML and PHP. XML changes should be made in the local.xml file in the /skins/frontend/package/theme/layouts/ directory or, in the case of CMS pages, may be entered in the Design tab. Changes to templates should be made by copying system files to the /skins/frontend/package/theme/templates/ directory.</p>
+
+		<h2>Address a Change to All Pages</h2>
 		<pre>
 			<code class="language-markup">
-				&lt;p label="http://degdigital.github.io/magento-frontend-snippets"&gt;Test&lt;/p&gt;
+				&lt;layout&gt;
+					&lt;default&gt;
+						&lt;reference name="target"&gt;
+							Code
+						&lt;/reference&gt;
+					&lt;/default&gt;
+				&lt;/layout&gt;
 			</code>
 		</pre>
+
+		<h2>Add a New Reference Region</h2>
+		<h6>In XML</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;layout&gt;
+					&lt;reference name="root"&gt;
+			            &lt;block type="core/text_list" name="code_name" translate="label"&gt;
+			                &lt;label&gt;Friendly Name&lt;/label&gt;
+			            &lt;/block&gt;
+					&lt;/reference&gt;
+				&lt;/layout&gt;
+			</code>
+		</pre>
+
+		<h6>In PHP</h6>
+		<pre>
+			<code class="language-php">
+				&lt;?php echo $this-&gt;getChildHtml('code_name') ?&gt;
+			</code>
+		</pre>
+
+		<h2>Add or Remove Javascript or Stylesheets in the "Head" Reference</h2>
+		<h6>Remove a Skin CSS File</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="removeItem"&gt;
+					&lt;type&gt;skin_css&lt;/type&gt;&lt;name&gt;css/file.css&lt;/name&gt;
+				&lt;/action&gt;
+			</code>
+		</pre>
+
+		<h6>Remove a Skin JS File</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="removeItem"&gt;
+					&lt;type&gt;skin_js&lt;/type&gt;&lt;name&gt;js/file.js&lt;/name&gt;
+				&lt;/action&gt;
+			</code>
+		</pre>
+
+		<h6>Add a Skin CSS File</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="addItem"&gt;
+					&lt;type&gt;skin_css&lt;/type&gt;&lt;name&gt;css/file.css&lt;/name&gt;
+				&lt;/action&gt;
+			</code>
+		</pre>
+
+		<h6>Add a Skin JS File</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="addItem"&gt;
+					&lt;type&gt;skin_js&lt;/type&gt;&lt;name&gt;css/file.js&lt;/name&gt;
+				&lt;/action&gt;
+			</code>
+		</pre>
+
+		<h6>Add a Root JS File (/js)</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="addItem"&gt;
+					&lt;type&gt;js&lt;/type&gt;&lt;name&gt;plugins/file.js&lt;/name&gt;
+				&lt;/action&gt;
+			</code>
+		</pre>
+
+		<h6>Commonly Removed Files</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;type&gt;skin_css&lt;/type&gt;&lt;name&gt;css/widgets.css&lt;/name&gt;
+				&lt;type&gt;skin_css&lt;/type&gt;&lt;name&gt;css/styles-ie.css&lt;/name&gt;
+				&lt;type&gt;js&lt;/type&gt;&lt;name&gt;lib/ds-sleight.js&lt;/name&gt;
+				&lt;type&gt;skin_js&lt;/type&gt;&lt;name&gt;js/slider.js&lt;/name&gt;
+			</code>
+		</pre>
+
+		<h2>Set a Page Layout</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;reference name="root"&gt;
+					&lt;action method="setTemplate"&gt;&lt;template&gt;page/template.phtml&lt;/template&gt;&lt;/action&gt;
+				&lt;/reference&gt;
+			</code>
+		</pre>
+
+		<h2>Remove Newsletter from Footer</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;reference name="footer"&gt;
+					&lt;remove name="footer.newsletter" /&gt;
+		 		&lt;/reference&gt;
+		 	</code>
+		</pre>
+
+		<h2>Remove product Tags from Product Detail Page</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;catalog_product_view&gt;
+					&lt;reference name="product.info.additional"&gt;
+						&lt;remove name="product_tag_list"/&gt;
+					&lt;/reference&gt;
+				&lt;/catalog_product_view&gt;
+		 	</code>
+		</pre>
+
+		<h2>Remove Old Version of jQuery Brought in by jqzoom</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;catalog_product_view&gt;
+					&lt;reference name="head"&gt;
+						&lt;action method="removeItem"&gt;
+							&lt;type&gt;skin_js&lt;/type&gt;&lt;name&gt;js/jqzoom/jquery-1.3.1.min.js&lt;/name&gt;
+						&lt;/action&gt;
+					&lt;/reference&gt;
+				&lt;/catalog_product_view&gt;
+			</code>
+		</pre>
+
+
+		<h2>Remove Callouts from the Right Column</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;reference name="right"&gt;
+					&lt;remove name="catalog.compare.sidebar" /&gt;
+					&lt;remove name="right.reports.product.viewed" /&gt;
+					&lt;remove name="sale.reorder.sidebar" /&gt;
+					&lt;remove name="right.poll" /&gt;
+					&lt;reference name="right"&gt;
+						&lt;action method="unsetChild"&gt;&lt;name&gt;right.permanent.callout&lt;/name&gt;&lt;/action&gt;
+					&lt;/reference&gt;
+				&lt;/reference&gt;
+			</code>
+		</pre>
+
+		<h2>Add a Class to the Page Body</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;reference name="root"&gt;
+					&lt;action method="addBodyClass"&gt;&lt;className&gt;class&lt;/className&gt;&lt;/action&gt;
+				&lt;/reference&gt;
+			</code>
+		</pre>
+
+
+		<h2>Add a Static Block to a Template</h2>
+		<h6>With XML</h6>
+		<pre>
+			<code class="language-markup">
+				&lt;block type="cms/block" name="my_block"&gt;
+					&lt;action method="setBlockId"&gt;
+						&lt;block_id&gt;block_identifier&lt;/block_id&gt;
+					&lt;/action&gt;
+				&lt;/block&gt;
+			</code>
+		</pre>
+
+		<h6>Alternately with PHP, done in a .phtml file</h6>
+		<pre>
+			<code class="language-php">
+				&lt;?php echo $this-&gt;getLayout()-&gt;createBlock('cms/block')-&gt;setBlockId('block_identifier')-&gt;toHtml(); ?&gt;
+			</code>
+		</pre>
+
+		<h2>Remove the WYSIWYG Wrapper (the “std” class added around content)</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;reference name="content"&gt;
+					&lt;action method="unsetChild"&gt;
+						&lt;alias&gt;cms.wrapper&lt;/alias&gt;
+					&lt;/action&gt;
+					&lt;block type="cms/page" name="cms_page"/&gt;
+				&lt;/reference&gt;
+		 	</code>
+		</pre>
+
+		<h2>Provide Specific Layouts for Users Based on Login Status</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;customer_logged_out&gt;
+					&lt;code here&gt;
+				&lt;customer_logged_out&gt;
+
+				&lt;customer_logged_in&gt;
+					&lt;code here&gt;
+				&lt;customer_logged_in&gt;
+		 	</code>
+		</pre>
+
+		<h2>Feed a Template Settings from CMS Content Area</h2>
+		<h6>In the CMS</h6>
+		<pre>
+			<code class="language-markup">
+				{{block title="text" img="path/file.ext" template="path/file.phtml" type="core/template"}}
+		 	</code>
+		</pre>
+
+		<h6>And In file.phtml</h6>
+		<pre>
+			<code class="language-php">
+				&lt;?php
+				$title = $this-&gt;getData('title');
+				$img = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .
+				$this-&gt;getData('img');
+				?&gt;
+
+				&lt;h1&gt;&lt;?php echo $title; ?&gt;&lt;/h1&gt;
+				&lt;img src="&lt;?php echo $img; ?&gt;" alt=""&gt;
+		 	</code>
+		</pre>
+
+		<h2>Set a Categories Grid to One Item Per Line</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;catalog_category_view&gt;
+					&lt;reference name="product_grid"&gt;
+			        	&lt;action method="setColumnCount"&gt;&lt;columns&gt;1&lt;/columns&gt;&lt;/action&gt;
+					&lt;/reference&gt;
+				&lt;/catalog_category_view&gt;
+		 	</code>
+		</pre>
+
+		<h2>Add a Link to an XML Link List (like top.links)</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;action method="addLink" translate="label title"&gt;
+					&lt;label&gt;Label&lt;/label&gt;
+					&lt;url&gt;url&lt;/url&gt;
+					&lt;title&gt;Title&lt;/title&gt;
+					&lt;prepare/&gt;
+					&lt;urlParams/&gt;
+					&lt;position&gt;10&lt;/position&gt;
+					&lt;liParams&gt;id="YourID"&lt;/liParams&gt;
+				&lt;/action&gt;
+		 	</code>
+		</pre>
+
+		<h2>You Can Use This Approach to Create Customized Account Links</h2>
+		<pre>
+			<code class="language-markup">
+				&lt;customer_logged_in&gt;
+					&lt;reference name="top.links"&gt;
+						&lt;action method="addLink" translate="label title" module="customer"&gt;
+							&lt;label&gt;Log Out&lt;/label&gt;
+							&lt;url helper="customer/getLogoutUrl"/&gt;
+							&lt;title&gt;Log Out&lt;/title&gt;
+							&lt;prepare/&gt;
+							&lt;urlParams/&gt;
+							&lt;position&gt;10&lt;/position&gt;
+							&lt;liParams&gt;id="logoutLink"&lt;/liParams&gt;
+						&lt;/action&gt;
+					&lt;/reference&gt;
+				&lt;/customer_logged_in&gt;
+
+				&lt;customer_logged_out&gt;
+					&lt;reference name="top.links"&gt;
+						&lt;action method="addLink" translate="label title" module="customer"&gt;
+							&lt;label&gt;Register&lt;/label&gt;
+							&lt;url helper="customer/getRegisterUrl"/&gt;
+							&lt;title&gt;Register&lt;/title&gt;
+							&lt;prepare/&gt;
+							&lt;urlParams/&gt;
+							&lt;position&gt;10&lt;/position&gt;
+							&lt;liParams&gt;id="RegisterLink"&lt;/liParams&gt;
+						&lt;/action&gt;
+						&lt;action method="addLink" translate="label title" module="customer"&gt;
+							&lt;label&gt;Login&lt;/label&gt;
+							&lt;url helper="customer/getLoginUrl"/&gt;
+							&lt;title&gt;Login&lt;/title&gt;
+							&lt;prepare/&gt;
+							&lt;urlParams/&gt;
+							&lt;position&gt;20&lt;/position&gt;
+							&lt;liParams&gt;id="LoginLink"&lt;/liParams&gt;
+						&lt;/action&gt;
+						&lt;action method="removeLinkByUrl"&gt;
+							&lt;url helper="customer/getAccountUrl" /&gt;
+						&lt;/action&gt;
+					&lt;/reference&gt;
+				&lt;/customer_logged_out&gt;
+		 	</code>
+		</pre>
+
+		<p>More information on working with Magento layouts is available on the Magento Ecommerce site at <a href="http://www.magentocommerce.com/wiki/4_-_themes_and_template_customization/0_-_theming_in_magento/designing-for-magento">http://www.magentocommerce.com/wiki/4_-_themes_and_template_customization/0_-_theming_in_magento/designing-for-magento</a>.</p>
+
+
+		</div>
 		<script src="js/prism.js"></script>
 	</body>
 </html>
