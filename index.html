@@ -262,42 +262,27 @@
 		 	</code>
 		</pre>
 
-		<h2>You Can Use This Approach to Create Customized Account Links</h2>
+		<h6>You Can Use This Approach to Create Customized Account Links</h6>
 		<pre>
 			<code class="language-markup">
 				&lt;customer_logged_in&gt;
 					&lt;reference name="top.links"&gt;
 						&lt;action method="addLink" translate="label title" module="customer"&gt;
-							&lt;label&gt;Log Out&lt;/label&gt;
-							&lt;url helper="customer/getLogoutUrl"/&gt;
-							&lt;title&gt;Log Out&lt;/title&gt;
-							&lt;prepare/&gt;
-							&lt;urlParams/&gt;
-							&lt;position&gt;10&lt;/position&gt;
-							&lt;liParams&gt;id="logoutLink"&lt;/liParams&gt;
+							&lt;label&gt;Log Out&lt;/label&gt; &lt;url helper="customer/getLogoutUrl"/&gt; &lt;title&gt;Log Out&lt;/title&gt; &lt;prepare/&gt; &lt;urlParams/&gt; &lt;position&gt;10&lt;/position&gt; &lt;liParams&gt;id="logoutLink"&lt;/liParams&gt;
 						&lt;/action&gt;
 					&lt;/reference&gt;
 				&lt;/customer_logged_in&gt;
-
+			</code>
+		</pre>
+		<pre>
+			<code class="language-markup">
 				&lt;customer_logged_out&gt;
 					&lt;reference name="top.links"&gt;
 						&lt;action method="addLink" translate="label title" module="customer"&gt;
-							&lt;label&gt;Register&lt;/label&gt;
-							&lt;url helper="customer/getRegisterUrl"/&gt;
-							&lt;title&gt;Register&lt;/title&gt;
-							&lt;prepare/&gt;
-							&lt;urlParams/&gt;
-							&lt;position&gt;10&lt;/position&gt;
-							&lt;liParams&gt;id="RegisterLink"&lt;/liParams&gt;
+							&lt;label&gt;Register&lt;/label&gt; &lt;url helper="customer/getRegisterUrl"/&gt; &lt;title&gt;Register&lt;/title&gt; &lt;prepare/&gt; &lt;urlParams/&gt; &lt;position&gt;10&lt;/position&gt; &lt;liParams&gt;id="RegisterLink"&lt;/liParams&gt;
 						&lt;/action&gt;
 						&lt;action method="addLink" translate="label title" module="customer"&gt;
-							&lt;label&gt;Login&lt;/label&gt;
-							&lt;url helper="customer/getLoginUrl"/&gt;
-							&lt;title&gt;Login&lt;/title&gt;
-							&lt;prepare/&gt;
-							&lt;urlParams/&gt;
-							&lt;position&gt;20&lt;/position&gt;
-							&lt;liParams&gt;id="LoginLink"&lt;/liParams&gt;
+							&lt;label&gt;Login&lt;/label&gt; &lt;url helper="customer/getLoginUrl"/&gt; &lt;title&gt;Login&lt;/title&gt; &lt;prepare/&gt; &lt;urlParams/&gt; &lt;position&gt;20&lt;/position&gt; &lt;liParams&gt;id="LoginLink"&lt;/liParams&gt;
 						&lt;/action&gt;
 						&lt;action method="removeLinkByUrl"&gt;
 							&lt;url helper="customer/getAccountUrl" /&gt;
